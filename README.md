@@ -1,32 +1,33 @@
-# React + TypeScript + Vite
+# Website Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A simple drag-and-drop website builder built with React, TypeScript, and Vite. You can drag elements from the left panel onto the canvas, rearrange them, customize their styles (color, background color, text size, alignment) and content, and export the output to HTML or PDF.
 
-Currently, two official plugins are available:
+## Tech Stack
+* **React & TypeScript**
+* **Vite** (build tool)
+* **@dnd-kit** (drag and drop library)
+* **html2canvas & jsPDF** (used for exporting canvas to PDF)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Why @dnd-kit instead of custom drag-and-drop?
+We chose `@dnd-kit` over writing custom drag-and-drop handlers or using the native HTML5 Drag and Drop API for a few reasons:
+1. **Touch Support**: Native HTML5 Drag and Drop does not work on mobile devices. `@dnd-kit` works out of the box on both desktop and mobile devices by normalizing mouse and touch events.
+2. **Accessibility**: It provides keyboard controls and screen reader attributes automatically, which are very tedious to build from scratch.
+3. **Animations and Performance**: `@dnd-kit` manages animations (smooth sliding when swapping elements) using hardware-accelerated CSS transforms. This prevents laggy layout rendering.
+4. **Collision Detection**: Rearranging elements in a list requires complex calculations to know where the dragged element is relative to other elements. `@dnd-kit` handles this logic natively, making sortable lists simple to implement.
 
-## React Compiler
+## Running Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Expanding the Oxlint configuration
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+3. Build for production:
+   ```bash
+   npm run build
+   ```
